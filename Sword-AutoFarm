@@ -45,3 +45,20 @@ game:GetService("RunService").Stepped:Connect(function()
 	end)
 end
 	})
+    local Toggle1 = Tab:CreateToggle({
+        Name = "Auto Click",
+        CurrentValue = false,
+        Flag = "Toggle1", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
+        Callback = function(Value)
+		Toggle1 = Value
+		local Saber = ""
+		for _,v in pairs(game:GetService("Workspace").fungame1234567890:GetChildren()) do
+			if v:IsA("Tool") then
+			Saber = v.Name
+			print(v)
+			while Toggle1 do wait()
+				game:GetService("ReplicatedStorage").Events.RemoteEvents.GiveSword:FireServer(Saber)
+			end
+		end
+	end
+end})
