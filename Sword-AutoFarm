@@ -1,0 +1,47 @@
+local Rayfield = loadstring(game:HttpGet('https://raw.githubusercontent.com/shlexware/Rayfield/main/source'))()
+local plr = game:GetService("Players").LocalPlayer
+local Window = Rayfield:CreateWindow({
+	Name = "Fun Hub",
+	LoadingTitle = "Fun Hub",
+	LoadingSubtitle = "by Fun",
+	ConfigurationSaving = {
+		Enabled = true,
+		FolderName = nil, -- Create a custom folder for your hub/game
+		FileName = "Fun Hub"
+	}})
+	local Tab = Window:CreateTab("Auto Farm", 4483362458)
+
+	local Section = Tab:CreateSection("Configuration")
+	
+	local Slider = Tab:CreateSlider({
+	Name = "Enemy Range",
+	Range = {0, 5},
+	Increment = 1,
+	Suffix = "Range",
+	CurrentValue = 1,
+	Flag = "Slider1", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
+	Callback = function(Value)
+	Range = Value
+	end,
+})
+
+Slider:Set(5)
+
+local Section1 = Tab:CreateSection("Farm")
+
+    local Toggle = Tab:CreateToggle({
+        Name = "Auto Farm",
+        CurrentValue = false,
+        Flag = "Toggle1", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
+        Callback = function(Value)
+		Toggle = Value
+game:GetService("RunService").Stepped:Connect(function()
+    if Toggle then wait(.1)
+        for i,v in pairs(game:GetService("Workspace").Bosses:GetChildren()) do 
+            local player = game.Players.LocalPlayer.Character.HumanoidRootPart
+            v.HumanoidRootPart.CFrame = player.CFrame * CFrame.new(0,0,-Range)
+        	end 
+    	end
+	end)
+end
+	})
